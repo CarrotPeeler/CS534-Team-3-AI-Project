@@ -5,6 +5,7 @@ Something something here...
 - idk
 
 ### Datasets Used
+- [PlantVillage for Image Classification](https://www.kaggle.com/datasets/vipoooool/new-plant-diseases-dataset)
 - [PlantDoc Datset for Image Classification](https://github.com/pratikkayal/PlantDoc-Dataset.git)
 - [PlantDoc Datset for Object Detection](https://github.com/pratikkayal/PlantDoc-Object-Detection-Dataset)
 
