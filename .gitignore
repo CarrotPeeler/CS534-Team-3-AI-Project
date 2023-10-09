@@ -1,1 +1,3 @@
-checkpoints/*[.pt,.pth,.pyth]
+runs/detect/train/weights/*
+YOLOv8/train_log.txt
+runs/*
