@@ -14,6 +14,12 @@ Something something here...
 - Look into data augmentation, such as RandAug, RandErase, CutMix, and MixUp => will generate more samples from existing samples, improve learning generalization
 
 ### Training
+Train **YOLOv8** in the background: 
+```
+cd YOLOv8
+tmux
+python3 scripts/train_net.py < /dev/null > train_log.txt 2>&1 &
+```
 
 ### Inference
 
