@@ -8,6 +8,3 @@ data_yaml_path = "/home/vislab-001/Jared/CS534-Team-3-AI-Project/PlantDoc_Object
 
 # Train the model with 2 GPUs
 results = model.train(data=data_yaml_path, epochs=100, imgsz=640, device=[0, 1])
-
-# print training results
-print(f"Final Training Results:\n\n{results}")
