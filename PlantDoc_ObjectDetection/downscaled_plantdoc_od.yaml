@@ -1,0 +1,24 @@
+names:
+- Apple
+- Bell_pepper
+- Blueberry
+- Cherry
+- Corn
+- Peach
+- Potato
+- Raspberry
+- Soybean
+- Squash
+- Strawberry
+- Tomato
+- grape
+nc: 13
+roboflow:
+  license: CC BY 4.0
+  project: plantdoc
+  url: https://universe.roboflow.com/joseph-nelson/plantdoc/dataset/4
+  version: 4
+  workspace: joseph-nelson
+test: ../test/images
+train: ../train/images
+val: ../valid/images

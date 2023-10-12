@@ -64,29 +64,38 @@ def remap_class_idxs(label_dirs, class_groups_dict):
                 f_new_anno.write(new_lines)
                         
 
-def fix_anno(yaml_filepath):
+def fix_anno(old_yaml_path, new_yaml_path):
     """
     Groups fine-grained/similar classes together under a new umbrella class index
 
     params:
-        yaml_filepath: path to yaml file for the data
+        old_yaml_path: path to yaml file for the data
+        new_yaml_path: path to updated yaml file
     returns:
         Returns an array, where each index represents the new class index;
         each sub list groups old class indices together under a new umbrella class index
     """
-    with open(yaml_filepath) as f:
+    with open(old_yaml_path) as f:
         data = yaml.safe_load(f)
 
     # get remapped classes
     class_groups_dict = group_fine_grained_classes(data)
 
     # get train, test, val label directory
-    yaml_root = yaml_filepath.rpartition('/')[0]
+    yaml_root = old_yaml_path.rpartition('/')[0]
     label_dirs = [yaml_root + "/" + split + "/labels" for split in ["train", "valid", "test"]]
 
     remap_class_idxs(label_dirs, class_groups_dict)
+
+    # add new yaml for updated data
+    data["nc"] = len(class_groups_dict)
+    data["names"] = list(class_groups_dict.keys())
+    
+    with open(new_yaml_path, "w+") as f_new_yaml:
+        yaml.dump(data, f_new_yaml, default_flow_style=False)
     
 
 if __name__ == "__main__":
-    yaml_path = "/home/vislab-001/Jared/CS534-Team-3-AI-Project/PlantDoc_ObjectDetection/plantdoc_objectdetection.yaml"
-    fix_anno(yaml_path)
+    old_yaml_path = "/home/vislab-001/Jared/CS534-Team-3-AI-Project/PlantDoc_ObjectDetection/plantdoc_objectdetection.yaml"
+    new_yaml_path = "/home/vislab-001/Jared/CS534-Team-3-AI-Project/PlantDoc_ObjectDetection/downscaled_plantdoc_od.yaml"
+    fix_anno(old_yaml_path, new_yaml_path)
