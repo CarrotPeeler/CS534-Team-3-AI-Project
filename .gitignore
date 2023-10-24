@@ -1,2 +1,2 @@
 runs/detect/**/weights/*
-hidden
+data/*
