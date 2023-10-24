@@ -49,8 +49,11 @@ if __name__ == "__main__":
             boxes = r.boxes.cpu()
             # append results
             img.append(img_name)
+            # x,y center coord of bbox; w,h are width, height of box
             bbox_xywh.append(boxes.xywh.tolist())
+            # confidence scores/probabilites of how correct predicted classes may be
             bbox_conf.append(boxes.conf.tolist())
+            # predicted classes
             bbox_cls.append(boxes.cls.tolist())
 
     # create output csv file with target and predicted values
