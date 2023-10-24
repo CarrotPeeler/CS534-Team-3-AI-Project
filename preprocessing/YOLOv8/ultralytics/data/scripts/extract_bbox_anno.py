@@ -1,6 +1,3 @@
-import os 
-import sys
-sys.path.insert(0, f"{os.getcwd()}")
 from preprocessing.YOLOv8.ultralytics.models import YOLO
 
 if __name__ == "__main__":
