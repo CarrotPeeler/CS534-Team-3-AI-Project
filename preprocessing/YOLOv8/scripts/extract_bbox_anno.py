@@ -8,6 +8,7 @@ if __name__ == "__main__":
     data_dir = f"{root}/data/PlantDoc_ObjectDetection/test"
     img_dir = f"{data_dir}/images"
     label_dir = f"{data_dir}/labels"
+    label_fine_dir = f"{data_dir}/labels_old"
 
     # load pretrained model checkpoint
     model = YOLO(f"{root}/runs/detect/downscaled_train_100_epochs_plantdoc_od/weights/best.pt") 
@@ -18,6 +19,7 @@ if __name__ == "__main__":
     # columns
     img = []
     target_cls = []
+    target_cls_fine = []
     target_xywh = []
     bbox_xywh = []
     bbox_conf = []
@@ -26,9 +28,10 @@ if __name__ == "__main__":
     for img_name in raw_anno_names:
         # get path to img
         anno_path = label_dir + '/' + img_name + '.txt'
+        anno_fine_path = label_fine_dir + '/' + img_name + '.txt'
         img_path = img_dir + '/' + img_name + '.jpg'
 
-        # grab target class and bbox xywh from label annotation file for image
+        # grab species target class and bbox xywh from label annotation file for image
         with open(anno_path) as f:
             tmp_clss = []
             tmp_xywhs = []
@@ -40,6 +43,16 @@ if __name__ == "__main__":
                 tmp_xywhs.append(list(map(lambda x:float(x), [x,y,w,h])))
             target_cls.append(tmp_clss)
             target_xywh.append(tmp_xywhs)
+            
+        # grab fine-grained, disease/condition of species in image
+        with open(anno_fine_path) as f_fine:
+            tmp_fine_clss = []
+            labels = f_fine.readlines()
+            # for each line, gather class and bbox labels
+            for label in labels:  
+                cls_fine, x, y, w, h = label.split()
+                tmp_fine_clss.append(int(cls_fine))
+            target_cls_fine.append(tmp_fine_clss)
             
         # get bbox predictions from image
         result = model(source=img_path, imgsz=640)
@@ -60,6 +73,7 @@ if __name__ == "__main__":
     results["image"] = img
     results["target_xywh"] = target_xywh
     results["target_cls"] = target_cls
+    results["target_cls_fine"] = target_cls_fine
     results["xywh"] = bbox_xywh
     results["cls"] = bbox_cls
     results["conf"] = bbox_conf
