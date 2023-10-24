@@ -11,12 +11,15 @@ Something something here...
 - [PlantDoc Datset for Object Detection](https://universe.roboflow.com/joseph-nelson/plantdoc)
 
 ### Data Preprocessing
-- Look into data augmentation, such as RandAug, RandErase, CutMix, and MixUp => will generate more samples from existing samples, improve learning generalization
+Run YOLOv8 inference over PlantDoc Object Detection test split:
+```
+python3  
+```
 
 ### Training
 Train **YOLOv8** in the background: 
 ```
-cd YOLOv8
+cd preprocessing/YOLOv8
 tmux
 python3 scripts/train_net.py < /dev/null > train_log.txt 2>&1 &
 ```

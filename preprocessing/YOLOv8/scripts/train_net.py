@@ -1,4 +1,4 @@
-from YOLOv8.ultralytics.models import YOLO
+from preprocessing.YOLOv8.ultralytics.models import YOLO
 
 if __name__ == "__main__":
     # load pretrained model checkpoint
