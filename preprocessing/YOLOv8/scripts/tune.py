@@ -1,5 +1,8 @@
 from ultralytics.models import YOLO
 
+# MAKE SURE YOU HAVE YOLO INSTALLED LOCALLY via PiP for tuning to work:
+# pip install ultralytics
+
 if __name__ == "__main__":
     # load pretrained model checkpoint
     model = YOLO("yolov8l.pt") 
