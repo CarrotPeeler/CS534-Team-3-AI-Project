@@ -25,8 +25,18 @@ cd preprocessing/YOLOv8
 tmux
 python3 scripts/train_net.py < /dev/null > train_log.txt 2>&1 &
 ```
+Can also run optional hyperparameter tuning running the following:
+```
+cd preprocessing/YOLOv8
+tmux
+python3 scripts/tune.py < /dev/null > tune_log.txt 2>&1 &
+```
 
-### Inference
+### Obtaining Boundary Boxes
+```
+cd preprocessing/YOLOv8
+python3 scripts/extract_bbox_anno.py 
+```
 
 
 ## Running Fine-grained Classification

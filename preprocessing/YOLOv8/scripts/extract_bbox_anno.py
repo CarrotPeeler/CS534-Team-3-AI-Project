@@ -1,7 +1,6 @@
 import os
-import numpy as np
 import pandas as pd
-from preprocessing.YOLOv8.ultralytics.models import YOLO
+from ultralytics.models import YOLO
 
 if __name__ == "__main__":
     root = "/home/vislab-001/Jared/CS534-Team-3-AI-Project"
