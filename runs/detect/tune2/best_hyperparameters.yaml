@@ -1,29 +1,29 @@
-# 19/100 iterations complete ✅ (14290.29s)
+# 37/100 iterations complete ✅ (29965.55s)
 # Results saved to /home/vislab-001/Jared/CS534-Team-3-AI-Project/runs/detect/tune2
-# Best fitness=0.37774 observed at iteration 9
-# Best fitness metrics are {'metrics/precision(B)': 0.39937, 'metrics/recall(B)': 0.57511, 'metrics/mAP50(B)': 0.51635, 'metrics/mAP50-95(B)': 0.36234, 'val/box_loss': 1.16307, 'val/cls_loss': 1.81672, 'val/dfl_loss': 1.5007, 'fitness': 0.37774}
-# Best fitness model is /home/vislab-001/Jared/CS534-Team-3-AI-Project/runs/detect/train9
+# Best fitness=0.43952 observed at iteration 31
+# Best fitness metrics are {'metrics/precision(B)': 0.46777, 'metrics/recall(B)': 0.61505, 'metrics/mAP50(B)': 0.59861, 'metrics/mAP50-95(B)': 0.42185, 'val/box_loss': 0.71083, 'val/cls_loss': 1.22528, 'val/dfl_loss': 1.76364, 'fitness': 0.43952}
+# Best fitness model is /home/vislab-001/Jared/CS534-Team-3-AI-Project/runs/detect/train31
 # Best fitness hyperparameters are printed below.
 
-lr0: 0.00817
-lrf: 0.01102
-momentum: 0.94943
-weight_decay: 0.00048
-warmup_epochs: 3.20605
-warmup_momentum: 0.63709
-box: 6.87616
-cls: 0.59677
-dfl: 1.41202
-hsv_h: 0.01216
-hsv_s: 0.57164
-hsv_v: 0.50646
+lr0: 0.00494
+lrf: 0.01163
+momentum: 0.93611
+weight_decay: 0.00064
+warmup_epochs: 3.86283
+warmup_momentum: 0.63628
+box: 4.21972
+cls: 0.44643
+dfl: 1.63383
+hsv_h: 0.01219
+hsv_s: 0.61169
+hsv_v: 0.50969
 degrees: 0.0
-translate: 0.11722
-scale: 0.45972
+translate: 0.11608
+scale: 0.43058
 shear: 0.0
 perspective: 0.0
 flipud: 0.0
-fliplr: 0.29928
-mosaic: 0.92028
+fliplr: 0.23629
+mosaic: 0.76426
 mixup: 0.0
 copy_paste: 0.0
