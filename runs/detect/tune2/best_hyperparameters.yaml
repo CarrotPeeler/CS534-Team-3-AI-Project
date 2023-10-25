@@ -1,4 +1,4 @@
-# 64/100 iterations complete ✅ (71356.68s)
+# 76/100 iterations complete ✅ (80389.08s)
 # Results saved to /home/vislab-001/Jared/CS534-Team-3-AI-Project/runs/detect/tune2
 # Best fitness=0.51524 observed at iteration 64
 # Best fitness metrics are {'metrics/precision(B)': 0.55381, 'metrics/recall(B)': 0.6875, 'metrics/mAP50(B)': 0.6957, 'metrics/mAP50-95(B)': 0.49519, 'val/box_loss': 0.77852, 'val/cls_loss': 1.15536, 'val/dfl_loss': 1.33426, 'fitness': 0.51524}
