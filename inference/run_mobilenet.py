@@ -28,10 +28,11 @@ train_data = train_datagen.flow_from_directory(os.path.join(base_dir,"train"),
                                               )
 
 test_data = test_datagen.flow_from_directory(os.path.join(base_dir,"valid"),
-                                               target_size=(image_size,image_size),
-                                               batch_size=32,
-                                               class_mode="categorical"                                               
-                                              )
+                                             shuffle=False,
+                                             target_size=(image_size,image_size),
+                                             batch_size=32,
+                                             class_mode="categorical"                                               
+                                            )
 
 print(train_data.class_indices)
 print(train_data.image_shape)
@@ -68,7 +69,7 @@ callbacks_list = [early_stop]
 history = mobilenet_model.fit(train_data,
                               steps_per_epoch=300,  
                               validation_data=test_data,
-                              epochs=2,
+                              epochs=5,
                               validation_steps=300,
                               callbacks=callbacks_list)
 
