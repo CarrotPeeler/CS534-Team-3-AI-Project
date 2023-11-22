@@ -1,3 +1,4 @@
 runs/detect/**/weights/*
+runs/**/*.pb
 data/*
 kaggle.json
