@@ -17,9 +17,9 @@ if __name__ == "__main__":
     raw_anno_names = list(map(lambda x:x.rpartition('.')[0], os.listdir(label_dir)))
 
     # columns
-    img = []
-    target_cls = []
-    target_cls_fine = []
+    img_paths = []
+    target_species = []
+    target_disease = []
     target_xywh = []
     bbox_xywh = []
     bbox_conf = []
@@ -41,7 +41,7 @@ if __name__ == "__main__":
                 cls, x, y, w, h = label.split()
                 tmp_clss.append(int(cls))
                 tmp_xywhs.append(list(map(lambda x:float(x), [x,y,w,h])))
-            target_cls.append(tmp_clss)
+            target_species.append(tmp_clss)
             target_xywh.append(tmp_xywhs)
             
         # grab fine-grained, disease/condition of species in image
@@ -52,7 +52,7 @@ if __name__ == "__main__":
             for label in labels:  
                 cls_fine, x, y, w, h = label.split()
                 tmp_fine_clss.append(int(cls_fine))
-            target_cls_fine.append(tmp_fine_clss)
+            target_disease.append(tmp_fine_clss)
             
         # get bbox predictions from image
         result = model(source=img_path, imgsz=640)
@@ -60,7 +60,7 @@ if __name__ == "__main__":
         for r in result:
             boxes = r.boxes.cpu()
             # append results
-            img.append(img_name)
+            img_paths.append(img_path)
             # x,y center coord of bbox; w,h are width, height of box
             bbox_xywh.append(boxes.xywh.tolist())
             # confidence scores/probabilites of how correct predicted classes may be
@@ -70,10 +70,10 @@ if __name__ == "__main__":
 
     # create output csv file with target and predicted values
     results = pd.DataFrame()
-    results["image"] = img
+    results["image_path"] = img_paths
     results["target_xywh"] = target_xywh
-    results["target_cls"] = target_cls
-    results["target_cls_fine"] = target_cls_fine
+    results["target_species"] = target_species
+    results["target_disease"] = target_disease
     results["xywh"] = bbox_xywh
     results["cls"] = bbox_cls
     results["conf"] = bbox_conf
