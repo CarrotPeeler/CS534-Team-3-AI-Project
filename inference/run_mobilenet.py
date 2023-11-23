@@ -11,7 +11,11 @@ from keras.callbacks import EarlyStopping
 base_dir = os.getcwd() + "/data/New_Plant_Disease_Dataset"
 # dir for saving checkpoints and results
 save_dir = "/home/vislab-001/Jared/CS534-Team-3-AI-Project/runs/classify/mobilenet"
+
+# hyperparameters
 image_size = 224
+batch_size = 32
+epochs = 9
 
 os.makedirs(save_dir, exist_ok=True)
 
@@ -30,14 +34,14 @@ test_datagen = keras.preprocessing.image.ImageDataGenerator(rescale = 1/255.0)
 train_data = train_datagen.flow_from_directory(os.path.join(base_dir,"train"),
                                                shuffle=True,
                                                target_size=(image_size,image_size),
-                                               batch_size=32,
+                                               batch_size=batch_size,
                                                class_mode="categorical"                                               
                                               )
 
 test_data = test_datagen.flow_from_directory(os.path.join(base_dir,"valid"),
                                              shuffle=False,
                                              target_size=(image_size,image_size),
-                                             batch_size=32,
+                                             batch_size=batch_size,
                                              class_mode="categorical"                                               
                                             )
 # print class corresponding indices and image shape
@@ -79,7 +83,7 @@ callbacks_list = [early_stop]
 history = mobilenet_model.fit(train_data,
                               steps_per_epoch=300,  
                               validation_data=test_data,
-                              epochs=5,
+                              epochs=epochs,
                               validation_steps=300,
                               callbacks=callbacks_list)
 # final evaluation after training
@@ -105,7 +109,7 @@ plt.plot(history.history['categorical_accuracy'], label = 'Training Accuracy')
 plt.plot(history.history['val_categorical_accuracy'], label = 'validation Accuracy')
 plt.grid(False)
 plt.xlabel('Epochs')
-plt.ylabel('Loss Magnitude')
+plt.ylabel('Accuracy')
 plt.title('Training Accuracy')
 plt.legend(loc='lower right')
 plt.savefig(f"{save_dir}/mobilenet_train_results.png")

@@ -17,6 +17,10 @@ Reformat annotations to only reflect species and not disease
 ```
 python3 preprocessing/downscale_annotations.py
 ```
+Reformat test data to only contain classes with multiple diseases (to evaluate disease detection and not plant detection)
+```
+python3 preprocessing/reformat_test_data.py
+```
 
 ### Training
 Train **YOLOv8** in the background: 
@@ -32,12 +36,17 @@ tmux
 python3 scripts/tune.py < /dev/null > tune_log.txt 2>&1 &
 ```
 
-### Obtaining Boundary Boxes
+### Obtaining Bounding Boxes
 ```
 cd preprocessing/YOLOv8
 python3 scripts/extract_bbox_anno.py 
 ```
 
+### Cropping Bounding Boxes
+```
+cd preprocessing/YOLOv8
+python3 crop_bboxes.py
+```
 
 ## Running Fine-grained Classification
 
