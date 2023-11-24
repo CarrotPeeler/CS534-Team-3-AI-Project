@@ -9,6 +9,12 @@ from keras.models import Sequential
 from keras.layers import Dense, Dropout, Flatten
 from keras.layers import Conv2D, MaxPooling2D
 
+# set the directory where test sampls are located
+predict_dir = "/home/vislab-001/Jared/CS534-Team-3-AI-Project/demo/SCNN/preprocessed_images"
+
+# set directory to checkpoint path
+checkpoint_path = "/home/vislab-001/Jared/CS534-Team-3-AI-Project/demo/SCNN/SCNN9epoch.h5"
+
 # set the model hyperparameters needed to build it
 num_classes = 25
 
@@ -37,24 +43,7 @@ model.add(Dense(128, activation='relu'))
 model.add(Dense(num_classes, activation='softmax'))
 
 # load pretrained model weights
-model.load_weights('SCNN9epoch.h5')
-
-# set the directory where test sampls are located
-predict_dir = "SCNN_predict"
-
-def get_files(directory):
-    if not os.path.exists(directory):
-        return 0
-    count = 0
-    for current_path, dirs, files in os.walk(directory):
-        for dr in dirs:
-            count += len(glob.glob(os.path.join(current_path, dr + "/*")))
-    return count
-
-# get the test images
-predict_samples = get_files(predict_dir)
-
-print(predict_samples, "Prediction images")
+model.load_weights(checkpoint_path)
 
 # Get normalization preprocessing function
 predict_datagen = ImageDataGenerator(rescale=1 / 255)

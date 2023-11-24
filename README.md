@@ -1,8 +1,14 @@
 # CS534-Team-3-AI-Project
-Something something here...
+Project on developing a pipeline for Plant Disease Detection in natural environments. 
 
 ## Dependencies
-- idk
+- Imutils
+- PyTorch
+- cv2 (Open-CV)
+- Keras/Tensorflow
+- Pandas
+- Ultralytics
+- Numpy
 
 ## Datasets Used
 Download the following datasets:
@@ -10,6 +16,19 @@ Download the following datasets:
   - NOTE: PlantVillage uses plant images taken in a labratory, unlike PlantDoc which uses photos of plants out in nature; PlantVillage provides more data overall, however
 - [PlantDoc Datset for Image Classification](https://github.com/pratikkayal/PlantDoc-Dataset.git)
 - [PlantDoc Datset for Object Detection](https://universe.roboflow.com/joseph-nelson/plantdoc) (NOTE: cURL is recommended for downloading)
+
+## Demo
+For a quick demo on how the pipeline works, first run YOLOv8 over the single test image:
+```
+python3 demo/SCNN/demo_yolo.py
+```
+This script will generate bounding boxes for the single image and then crop/preprocess them accordingly. After preprocessing, the saved images will appear in the preprocessed_images/class_samples folder.
+
+Then, run the Sequential CNN for fine-grained, disease classification:
+```
+python3 demo/SCNN/demo_scnn.py
+```
+The terminal should display the predicted classes for each photo in order. There should be 16 photos and predictions total. For reference, the correct target class for the potato blight photo given is class 12.
 
 ## Running YOLOv8
 ### Data Preprocessing

@@ -1,6 +1,7 @@
 import os
 import cv2
 import imutils
+import shutil
 from ultralytics.models import YOLO
 from ultralytics.utils.plotting import save_one_box
 
@@ -10,10 +11,15 @@ if __name__ == "__main__":
 
     # directory where preprocessed images are saved 
     crop_save_dir = "/home/vislab-001/Jared/CS534-Team-3-AI-Project/demo/SCNN/preprocessed_images"
-    os.makedirs(crop_save_dir, exist_ok=True)
+
+    if os.path.exists(crop_save_dir):
+        shutil.rmtree(crop_save_dir)
+    os.makedirs(crop_save_dir + '/class_samples', exist_ok=True)
 
     # directory where YOLOv8 results are saved
     yolo_results_save_dir = f"{root}/demo/SCNN/yolo_results"
+    if os.path.exists(yolo_results_save_dir):
+        shutil.rmtree(yolo_results_save_dir)
     os.makedirs(yolo_results_save_dir, exist_ok=True)
 
     # load pretrained model checkpoint
@@ -36,12 +42,11 @@ if __name__ == "__main__":
 
     # perfom preprocessing (crop, rotate, resize) on each bbox in image
     for i, xyxy in enumerate(bboxes_xyxy):
-        print(xyxy)
         cropped_img = save_one_box(xyxy, img, BGR=True, save=False)
 
         # generate 4 copies of cropped image, rotated in 90 deg increments
         for angle in [0, 90, 180, 270]:
-            save_path = f"{crop_save_dir}/{img_path.rpartition('/')[-1].rpartition('.jpg')[0]}_{i}_{angle}.jpg"
+            save_path = f"{crop_save_dir}/class_samples/{img_path.rpartition('/')[-1].rpartition('.jpg')[0]}_{i}_{angle}.jpg"
 
             # save crop if not bad image; also resize and rotate
             try:
