@@ -21,7 +21,7 @@ if __name__ == "__main__":
     target_species = []
     target_disease = []
     target_xywh = []
-    bbox_xywh = []
+    bbox_xyxy = []
     bbox_conf = []
     bbox_cls = []
 
@@ -62,7 +62,7 @@ if __name__ == "__main__":
             # append results
             img_paths.append(img_path)
             # x,y center coord of bbox; w,h are width, height of box
-            bbox_xywh.append(boxes.xywh.tolist())
+            bbox_xyxy.append(boxes.xyxy.tolist())
             # confidence scores/probabilites of how correct predicted classes may be
             bbox_conf.append(boxes.conf.tolist())
             # predicted classes
@@ -74,7 +74,7 @@ if __name__ == "__main__":
     results["target_xywh"] = target_xywh
     results["target_species"] = target_species
     results["target_disease"] = target_disease
-    results["xywh"] = bbox_xywh
+    results["xyxy"] = bbox_xyxy
     results["cls"] = bbox_cls
     results["conf"] = bbox_conf
     results.to_csv(f"{root}/yolo_results.csv", index=False)
