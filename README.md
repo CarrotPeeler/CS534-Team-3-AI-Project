@@ -18,7 +18,11 @@ Download the following datasets:
 - [PlantDoc Datset for Object Detection](https://universe.roboflow.com/joseph-nelson/plantdoc) (NOTE: cURL is recommended for downloading)
 
 ## Demo
-For a quick demo on how the pipeline works, first run YOLOv8 over the single test image:
+For a quick demo on how the pipeline works, first download the SCNN pretrained weights from [here](https://wpi0-my.sharepoint.com/:u:/g/personal/jchan3_wpi_edu/EesXPbRY35VKn2RfM50LG3oBOqgrZSKBrZEOmJm1uymoPA?e=Da4Qq0) (Must have access to a WPI email account).
+
+Place the checkpoint file in the demo/SCNN folder => demo/SCNN/SCNN9epoch.h5
+
+Run YOLOv8 over the single test image:
 ```
 python3 demo/SCNN/demo_yolo.py
 ```
