@@ -18,9 +18,19 @@ Download the following datasets:
 - [PlantDoc Datset for Object Detection](https://universe.roboflow.com/joseph-nelson/plantdoc) (NOTE: cURL is recommended for downloading)
 
 ## Demo
-For a quick demo on how the pipeline works, first download the SCNN pretrained weights from [here](https://wpi0-my.sharepoint.com/:u:/g/personal/jchan3_wpi_edu/EesXPbRY35VKn2RfM50LG3oBOqgrZSKBrZEOmJm1uymoPA?e=Da4Qq0) (Must have access to a WPI email account).
+For a quick demo on how the pipeline works, first download the SCNN pretrained weights from [here](https://wpi0-my.sharepoint.com/:u:/g/personal/jchan3_wpi_edu/EesXPbRY35VKn2RfM50LG3oBOqgrZSKBrZEOmJm1uymoPA?e=Da4Qq0) 
 
 Place the checkpoint file in the demo/SCNN folder => demo/SCNN/SCNN9epoch.h5
+
+Download YOLOv8 pretrained weights [here](https://wpi0-my.sharepoint.com/:u:/g/personal/jchan3_wpi_edu/Edm1Jexn5AJMrM9GUtdL2SYBcBeUHXBBolwWtbyTAAFlVg?e=XJD0bf)
+
+Place the checkpoint anywhere but make sure to edit the root and path of the checkpoint file in demo_yolo.py:
+```python
+root = ".."
+model = YOLO("../path_to/best.pt")
+```
+
+Must have access to a WPI email account for both.
 
 Run YOLOv8 over the single test image:
 ```
@@ -72,4 +82,22 @@ python3 crop_bboxes.py
 ```
 
 ## Running Fine-grained Classification
-
+### SCNN
+Run the following to train:
+```
+python3 train/SCNN/run_scnn.py
+```
+To run inference over the cropped YOLOv8 images:
+```
+python3 train/SCNN/predict_scnn.py
+```
+### MobileNet
+Run the following to train:
+```
+python3 train/mobilenet/run_mobilenet.py
+```
+### End-to-End Performance
+For end-to-end (YOLOv8 + any CNN above) metrics, run the following after obtaining a results csv file from above:
+```
+python3 train/test_metrics.py
+```

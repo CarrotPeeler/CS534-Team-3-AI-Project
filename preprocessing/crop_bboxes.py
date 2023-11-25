@@ -22,7 +22,7 @@ if __name__ == "__main__":
     anno_df = pd.DataFrame()
     img_paths = []
     target_class = []
-    pred_xywh = []
+    pred_xyxy = []
     target_xywh = []
     conf = []
 
@@ -36,9 +36,11 @@ if __name__ == "__main__":
         pred_bboxes = ast.literal_eval(row["xyxy"])
         target_bboxes = ast.literal_eval(row["target_xywh"])
         # make sure to unnormalize the target bboxes for easier comparison w/ unnormalized pred boxes
+        un_target_bboxes = []
         for target_bbox in target_bboxes:
             t_x, t_y, t_w, t_h = target_bbox
-            target_bbox = [t_x * width, t_y*height, t_w*width, t_h*height]
+            t_new_bbox = [t_x * width, t_y*height, t_w*width, t_h*height]
+            un_target_bboxes.append(t_new_bbox)
 
         target_disease = ast.literal_eval(row["target_disease"]) 
         obj_conf = ast.literal_eval(row["conf"])
@@ -64,14 +66,15 @@ if __name__ == "__main__":
                 img_paths.append(save_path)
                 target_class.append(target_disease)
                 conf.append(obj_conf)
-                pred_xywh.append(pred_bboxes)
-                target_xywh.append(target_bboxes)
+                pred_xyxy.append(pred_bboxes)
+                target_xywh.append(un_target_bboxes)
 
     # create columns of dataframe
     anno_df["image_path"] = img_paths
     anno_df["target_class"] = target_class
-    anno_df["pred_xywh"] = pred_xywh
+    anno_df["pred_xyxy"] = pred_xyxy
     anno_df["target_xywh"] = target_xywh
+    anno_df["conf"] = conf
     # save dataframe as csv
     anno_df.to_csv("crop_results.csv", index=False)
 
