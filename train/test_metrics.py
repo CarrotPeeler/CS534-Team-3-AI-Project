@@ -14,6 +14,9 @@ if __name__ == "__main__":
     anno_path = "/home/vislab-001/Jared/CS534-Team-3-AI-Project/train/scnn_results.csv"
 
     anno_df = pd.read_csv(anno_path)
+    
+    # filter out images with no target information
+    anno_df.drop(anno_df.index[anno_df["target_class"] == "[]"], inplace=True)
 
     # create subgroups for analysis based on rotation aug
     df_0 = anno_df.loc[anno_df["image_path"].str.rpartition('_rotated_')[2].str.rpartition('.jpg')[0] == "0"]
@@ -42,9 +45,10 @@ if __name__ == "__main__":
                 tcls = cls_mapping[plantdoc_classes[tcls]]
                 label = [tcls,tx1,ty1,tx2,ty2]
                 labels.append(label)
-                print(tcls)
+                print("targ_npd",tcls)
 
             detections = torch.tensor(detections)
             labels = torch.tensor(labels)
+            print(row["image_path"])
             print(process_batch(detections, labels))
 
