@@ -61,3 +61,7 @@ def process_batch(detections, labels):
     """
     iou = box_iou(labels[:, 1:], detections[:, :4])
     return match_predictions(detections[:, 5], labels[:, 0], iou)
+
+
+def get_mean_results():
+    pass

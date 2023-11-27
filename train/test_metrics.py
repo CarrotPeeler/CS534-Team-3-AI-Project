@@ -24,8 +24,9 @@ if __name__ == "__main__":
     df_180 = anno_df.loc[anno_df["image_path"].str.rpartition('_rotated_')[2].str.rpartition('.jpg')[0] == "180"]
     df_270 = anno_df.loc[anno_df["image_path"].str.rpartition('_rotated_')[2].str.rpartition('.jpg')[0] == "270"]
 
+    stats = []
     for idx, row in df_0.iterrows():
-        if idx < 100:
+        # if idx < 100:
             # reconstruct detection data matrix but include new pred class
             x1,y1,x2,y2 = literal_eval(row["pred_xyxy"])[0]
             conf = literal_eval(row["conf"])[0]
@@ -50,5 +51,6 @@ if __name__ == "__main__":
             detections = torch.tensor(detections)
             labels = torch.tensor(labels)
             print(row["image_path"])
-            print(process_batch(detections, labels))
+            correct_bboxes = process_batch(detections, labels)
+            stats.append((correct_bboxes, detections[:, 4], detections[:, 5], labels[:, 0]))
 
