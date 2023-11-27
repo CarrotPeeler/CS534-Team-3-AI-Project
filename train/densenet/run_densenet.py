@@ -23,7 +23,7 @@ if __name__ == "__main__":
     # hyperparameters
     image_size = 224
     batch_size = 32
-    epochs = 5
+    epochs = 9
     init_lr = 1e-3 # 1E-3
 
     os.makedirs(save_dir, exist_ok=True)
