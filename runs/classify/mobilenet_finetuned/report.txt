@@ -1,24 +1,24 @@
                             precision    recall  f1-score   support
 
-           Apple Scab Leaf       0.60      0.30      0.40        10
-                Apple leaf       0.57      0.89      0.70         9
+           Apple Scab Leaf       0.67      0.40      0.50        10
+                Apple leaf       0.47      0.89      0.62         9
            Apple rust leaf       0.83      0.50      0.62        10
-       Corn Gray leaf spot       0.50      0.25      0.33         4
-          Corn leaf blight       0.71      0.83      0.77        12
-            Corn rust leaf       0.89      0.80      0.84        10
-  Potato leaf early blight       0.33      0.50      0.40         8
-   Potato leaf late blight       0.27      0.38      0.32         8
-  Tomato Early blight leaf       0.40      0.22      0.29         9
- Tomato Septoria leaf spot       0.50      0.82      0.62        11
-               Tomato leaf       0.50      0.62      0.56         8
-Tomato leaf bacterial spot       0.00      0.00      0.00         9
-   Tomato leaf late blight       0.50      0.50      0.50        10
+       Corn Gray leaf spot       0.38      0.75      0.50         4
+          Corn leaf blight       0.86      0.50      0.63        12
+            Corn rust leaf       0.90      0.90      0.90        10
+  Potato leaf early blight       0.31      0.62      0.42         8
+   Potato leaf late blight       0.50      0.38      0.43         8
+  Tomato Early blight leaf       0.67      0.44      0.53         9
+ Tomato Septoria leaf spot       0.40      0.73      0.52        11
+               Tomato leaf       0.62      0.62      0.62         8
+Tomato leaf bacterial spot       0.10      0.11      0.11         9
+   Tomato leaf late blight       0.56      0.50      0.53        10
   Tomato leaf mosaic virus       0.00      0.00      0.00        10
   Tomato leaf yellow virus       0.67      0.67      0.67         6
-          Tomato mold leaf       0.20      0.33      0.25         6
-                grape leaf       1.00      0.83      0.91        12
-      grape leaf black rot       0.88      0.88      0.88         8
+          Tomato mold leaf       0.33      0.33      0.33         6
+                grape leaf       0.92      0.92      0.92        12
+      grape leaf black rot       0.86      0.75      0.80         8
 
-                  accuracy                           0.54       160
-                 macro avg       0.52      0.52      0.50       160
-              weighted avg       0.54      0.54      0.52       160
+                  accuracy                           0.56       160
+                 macro avg       0.56      0.56      0.54       160
+              weighted avg       0.58      0.56      0.55       160

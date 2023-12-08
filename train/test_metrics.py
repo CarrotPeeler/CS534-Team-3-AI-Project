@@ -8,13 +8,14 @@ from train.utils import process_batch, ap_per_class, mp, mr, map50, map50_95
 from typing import List, Tuple
 
 
-def get_stats(df:pd.DataFrame) -> List[Tuple]:
+def get_stats(df:pd.DataFrame, train_dataset:str) -> List[Tuple]:
     """
     For each predicted image, parse binary true-positive array for iou 0.5:0.95, 
     detection confidence, detection class, and target class
 
     params:
         df: dataframe with columns [image_path,target_class,pred_xyxy,target_xywh,conf,pred_class]
+        train_dataset: either "NewPlantDiseases" or "PlantDoc"; used for class idx remapping
     returns:
         list of tuples (true_pos_array, confidence, pred_class, target_class)
     """
@@ -36,8 +37,13 @@ def get_stats(df:pd.DataFrame) -> List[Tuple]:
             tx1,ty1,tx2,ty2 = t_xyxy
             tcls = target_class[i]
 
-            # remap to NewPlantDiseases class idx
-            tcls = cls_mapping[plantdoc_classes[tcls]]
+            if train_dataset == "NewPlantDiseases":
+                # remap PlantDoc Object Detection class idx to NewPlantDiseases class idx
+                tcls = plantdoc_od_to_npds_mapping[plantdoc_od_idxs_mapping[tcls]]
+            elif train_dataset == "PlantDoc":
+                # remap PlantDoc Object Detection class idx to PlantDoc Classification class idx
+                tcls = plantdoc_cls_name_mapping[plantdoc_od_idxs_mapping[tcls]]
+
             label = [tcls,tx1,ty1,tx2,ty2]
             labels.append(label)
             # print("targ_npd",tcls)
@@ -77,12 +83,15 @@ def get_metrics(stats:List[Tuple]) -> Tuple:
 
 
 if __name__ == "__main__":
-    # compute final metrics (mAP50, mAP50-95, recall, precision, F1-score)
+    # compute final metrics (mAP50, mAP50-95, recall, precision)
     # Since we use rotation augmentation to increase inference redundancy of a single cropped image,
     # we will ensemble results via mean
 
     # set annotation path to the csv for the model you would like to obtain metrics for
-    anno_path = "/home/vislab-001/Jared/CS534-Team-3-AI-Project/train/densenet_pretrain_results.csv"
+    anno_path = "/home/vislab-001/Jared/CS534-Team-3-AI-Project/train/mobilenet_results.csv"
+    # train dataset (either "PlantDoc" or "NewPlantDiseases"); use PlantDoc for finetuned models and NewPlantDiseases otherwise
+    # train_dataset = "PlantDoc"
+    train_dataset = "NewPlantDiseases"
 
     anno_df = pd.read_csv(anno_path)
     
@@ -102,7 +111,7 @@ if __name__ == "__main__":
 
     # gather metrics for each augmented batch of predictions
     for df in dfs:
-        stats = get_stats(df)
+        stats = get_stats(df, train_dataset)
         metrics = get_metrics(stats)
         all_metrics.append(metrics)
     
