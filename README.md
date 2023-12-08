@@ -14,6 +14,7 @@ Project on developing a pipeline for Plant Disease Detection in natural environm
 Download the following datasets:
 - [Augmented PlantVillage Dataset for Image Classification](https://www.kaggle.com/datasets/vipoooool/new-plant-diseases-dataset/)
   - NOTE: PlantVillage uses plant images taken in a labratory, unlike PlantDoc which uses photos of plants out in nature; PlantVillage provides more data overall, however
+- [PlantDoc dataset for Classification](https://github.com/pratikkayal/PlantDoc-Dataset)
 - [PlantDoc Datset for Object Detection](https://universe.roboflow.com/joseph-nelson/plantdoc) (NOTE: cURL is recommended for downloading)
 
 ## Demo
@@ -81,22 +82,44 @@ python3 crop_bboxes.py
 ```
 
 ## Running Fine-grained Classification
+
 ### SCNN
 Run the following to train:
 ```
-python3 train/SCNN/run_scnn.py
+python3 train/SCNN/train_scnn.py
 ```
 To run inference over the cropped YOLOv8 images:
 ```
 python3 train/SCNN/predict_scnn.py
 ```
+
 ### MobileNet
 Run the following to train:
 ```
-python3 train/mobilenet/run_mobilenet.py
+python3 train/mobilenet/train_mobilenet.py
 ```
+To run inference over the cropped YOLOv8 images:
+```
+python3 train/mobilenet/predict_mobilenet.py
+```
+
+### DenseNet
+Run the following to train:
+```
+python3 train/densenet/train_densenet.py
+```
+To run inference over the cropped YOLOv8 images:
+```
+python3 train/densenet/predict_densenet.py
+```
+
 ### End-to-End Performance
-For end-to-end (YOLOv8 + any CNN above) metrics, run the following after obtaining a results csv file from above:
+For end-to-end (YOLOv8 + any CNN above) metrics, run the following after obtaining a results csv file from above.
+You will need to edit the file path according to the results csv path:
+```python
+anno_path = ""
+```
+Then, run:
 ```
 python3 train/test_metrics.py
 ```
