@@ -1,51 +1,30 @@
 import numpy as np
 import pandas as pd
 
-from keras.models import Sequential
-from keras.layers import Dense, Dropout, Flatten
-from keras.layers import Conv2D, MaxPooling2D
+from tensorflow import keras
 from keras.utils import load_img, img_to_array
 
 if __name__ == "__main__":
     # set annotation csv path for cropped input images 
     anno_path = "/home/vislab-001/Jared/CS534-Team-3-AI-Project/crop_results.csv"
 
-    output_anno_path = "/home/vislab-001/Jared/CS534-Team-3-AI-Project/train/scnn_results.csv"
+    output_anno_path = "/home/vislab-001/Jared/CS534-Team-3-AI-Project/train/densenet_results.csv"
 
     anno_df = pd.read_csv(anno_path)
 
-    # set directory to checkpoint path
-    checkpoint_path = "/home/vislab-001/Jared/CS534-Team-3-AI-Project/demo/SCNN/SCNN9epoch.h5"
+    # set directory to checkpoint path (if .pb file, set path to entire parent folder of .pb; else if .h5, set path to .h5 file)
+    checkpoint_path = "/home/vislab-001/Jared/CS534-Team-3-AI-Project/runs/classify/densenet"
 
     # set the model hyperparameters needed to build it
     num_classes = 25
 
     # set height and width of input image.
-    img_width, img_height = 256, 256
+    img_width, img_height = 224, 224
     input_shape = (img_width, img_height, 3)
 
-    # Build the Sequential CNN backbone
-    model = Sequential()
-
-    model.add(Conv2D(32, (5, 5), input_shape=input_shape, activation='relu'))
-    model.add(MaxPooling2D(pool_size=(3, 3)))
-
-    model.add(Conv2D(32, (3, 3), activation='relu'))
-    model.add(MaxPooling2D(pool_size=(2, 2)))
-
-    model.add(Conv2D(64, (3, 3), activation='relu'))
-    model.add(MaxPooling2D(pool_size=(2, 2)))
-
-    model.add(Flatten())
-
-    model.add(Dense(512, activation='relu'))
-    model.add(Dropout(0.25))
-    model.add(Dense(128, activation='relu'))
-
-    model.add(Dense(num_classes, activation='softmax'))
-
-    # load pretrained model weights
-    model.load_weights(checkpoint_path)
+    # load model and saved weights 
+    model = keras.models.load_model(checkpoint_path)
+    print(model.summary())
 
     # predict all cropped images
     preds = []
