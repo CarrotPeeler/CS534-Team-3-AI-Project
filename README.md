@@ -113,6 +113,12 @@ To run inference over the cropped YOLOv8 images:
 python3 train/densenet/predict_densenet.py
 ```
 
+### Fine Tuning
+For fine tuning MobileNet, run the following after editing params:
+```
+python3 train/mobilenet/finetune_mobilenet.py
+```
+
 ### End-to-End Performance
 For end-to-end (YOLOv8 + any CNN above) metrics, run the following after obtaining a results csv file from above.
 You will need to edit the file path according to the results csv path:
